@@ -6,10 +6,13 @@ import UpdateProduct from './pages/updateProduct.jsx';
 import Product from './pages/product.jsx';
 import logout from './pages/logout.jsx';
 import Profile from './pages/profile.jsx';
+import Footer from './components/footer.jsx';
+import Signup from './pages/signup.jsx';
 
 const App = () => {
   return (
-    <Router>
+    <div>
+       <Router>
       <Navbar />
       <Routes>
         <Route path="/" element={<Product />} />
@@ -17,11 +20,19 @@ const App = () => {
         <Route path="/UpdateProduct" element={<UpdateProduct />} />
         <Route path="/logout" element={<logout />} />
         <Route path="/Profile" element={<Profile />} />
+        <Route path="/Signup" element={<Signup />} />
+
         
 
 
       </Routes>
     </Router>
+   
+    <Footer/>
+
+    </div>
+   
+   
   );
 };
 
