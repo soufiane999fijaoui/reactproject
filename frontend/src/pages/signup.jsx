@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import Swal from 'sweetalert2';
+import { useNavigate } from "react-router-dom";
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const Signup = () => {
@@ -7,31 +8,22 @@ const Signup = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const navigate= useNavigate();
+  const collectData= async()=>{
+   
+    let result= await fetch("http://localhost:8000/register",{
+      method:'post',
+      body: JSON.stringify({name,email,password,confirmPassword}),
+      headers:{
+        'Content-type':'application/json'
+      }
+    });
+    result= await result.json();
+    console.warn(result);
+    navigate("/")
+  }
 
-  const handleRegister = (e) => {
-    e.preventDefault();
-    
-    console.log('Name:', name);
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Confirm Password:', confirmPassword);
-
-    if (password !== confirmPassword) {
-      Swal.fire({
-        title: 'Error!',
-        text: 'Passwords do not match!',
-        icon: 'error',
-        confirmButtonText: 'OK'
-      });
-    } else {
-      Swal.fire({
-        title: 'Success!',
-        text: 'Registration Successful!',
-        icon: 'success',
-        confirmButtonText: 'OK'
-      });
-    }
-  };
+ 
 
   return (
     <div className="container mt-5">
@@ -40,7 +32,7 @@ const Signup = () => {
           <div className="card shadow-lg rounded-4">
             <div className="card-body p-4">
               <h2 className="text-center mb-4">Sign Up</h2>
-              <form onSubmit={handleRegister}>
+              <form>
                 <div className="mb-3">
                   <label htmlFor="name" className="form-label">Your Name</label>
                   <input
@@ -91,12 +83,18 @@ const Signup = () => {
                 </div>
                
                 <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
-                  <button type="submit" className="btn btn-primary w-100">Register</button>
+                  <button
+                    type="button"
+                    onClick={collectData}
+                    className="btn btn-primary w-100"
+                  >
+                    Register
+                  </button>
                 </div>
               </form>
             </div>
           </div>
-         
+          
         </div>
       </div>
     </div>

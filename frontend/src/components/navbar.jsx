@@ -21,7 +21,7 @@ const Navbar = () => {
               marginRight: '10px',
             }}
           />
-          <span>Dashboard</span>
+          
         </Link>
         <button
           className="navbar-toggler"
