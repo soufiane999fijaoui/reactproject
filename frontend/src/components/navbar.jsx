@@ -1,13 +1,21 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import logosite from '../assets/logosite.png';
 
 const Navbar = () => {
+  const auth = localStorage.getItem("user");
+  const navigate = useNavigate();
+
+  const logout = () => {
+    localStorage.clear();
+    navigate("/signup");
+  };
+
   return (
     <nav
       className="navbar navbar-expand-lg shadow-lg"
       style={{
-        backgroundColor: 'blue', 
+        backgroundColor: 'blue',
       }}
     >
       <div className="container">
@@ -21,7 +29,6 @@ const Navbar = () => {
               marginRight: '10px',
             }}
           />
-          
         </Link>
         <button
           className="navbar-toggler"
@@ -45,14 +52,25 @@ const Navbar = () => {
             <li className="nav-item">
               <Link className="nav-link text-light" to="/updateProduct">Update Products</Link>
             </li>
-            <li className="nav-item">
-              <Link className="nav-link text-light" to="/logout">Logout</Link>
-            </li>
+            {auth ? (
+              <li className="nav-item">
+                <button
+                  onClick={logout}
+                  className="btn nav-link text-light bg-transparent border-0"
+                >
+                  Logout
+                </button>
+              </li>
+            ) : (
+              <li className="nav-item">
+                <Link className="nav-link text-light" to="/signup">Sign Up</Link>
+              </li>
+            )}
             <li className="nav-item">
               <Link className="nav-link text-light" to="/profile">Profile</Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link text-light" to="/Signup">Sign up</Link>
+              <Link className="nav-link text-light" to="/login">login</Link>
             </li>
           </ul>
         </div>
