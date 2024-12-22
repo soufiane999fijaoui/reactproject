@@ -1,14 +1,12 @@
 import React from "react";
-import {Navigate,Outlet } from "react-router-dom";
-import Signup from "./signup";
+import { Navigate, Outlet } from "react-router-dom"; 
 
+function PrivateComponent() {
+    const auth = localStorage.getItem("user");
 
-
-function PrivateComponnet() {
-    const auth =localStorage.getItem("user")
     return (
-        auth ? <Outlet/> : <Navigate to="signup"/>
+        auth ? <Outlet /> : <Navigate to="/signup" />
     );
 }
 
-export default PrivateComponnet;
+export default PrivateComponent;

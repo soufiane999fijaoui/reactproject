@@ -18,6 +18,32 @@
 .env.test.local
 .env.production.local
 
+# logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# configuration files (ignore sensitive files and settings)
+*.env
+*.env.*
+
+# build-related files
+*.log
+*.pid
+*.seed
+*.bak
+
+# assets and images
+/assets/*    # Ignore all files inside the assets directory
+*.jpeg       # Ignore all jpeg image files
+*.png        # Ignore all png image files
+*.jpg        # Ignore all jpg image files
+*.svg        # Ignore svg files (optional)
+
+# IDE/editor config files (e.g., Visual Studio Code, WebStorm, etc.)
+.vscode/
+.idea/
+
+# Temporary files
+*.swp
+*~
