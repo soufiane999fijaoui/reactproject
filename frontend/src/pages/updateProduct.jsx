@@ -55,7 +55,7 @@ const UpdateProduct = () => {
       if (!response.ok) {
         throw new Error('Failed to update product');
       }
-
+ 
       Swal.fire({
         icon: 'success',
         title: 'Product Updated',

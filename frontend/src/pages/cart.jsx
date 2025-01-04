@@ -22,32 +22,44 @@ const Cart = () => {
     <div className="container mt-5">
       <h1 className="mb-4 text-center">Your Cart</h1>
       {cartItems.length > 0 ? (
-        <div className="row">
-          {cartItems.map((item) => (
-            <div className="col-md-4 mb-3" key={item._id}>
-              <div className="card">
-                {item.image && (
-                  <img
-                    src={`http://localhost:400/${item.image}`}
-                    className="card-img-top"
-                    alt={item.name}
-                    style={{ height: "200px", objectFit: "cover" }}
-                  />
-                )}
-                <div className="card-body">
-                  <h5 className="card-title">{item.name}</h5>
-                  <p className="card-text">Price: ${item.price}</p>
-                  <p className="card-text">Company: {item.company}</p>
-                  <button
-                    className="btn btn-danger btn-sm"
-                    onClick={() => removeItemFromCart(item._id)}
-                  >
-                    Remove
-                  </button>
-                </div>
-              </div>
-            </div>
-          ))}
+        <div className="table-responsive">
+          <table className="table table-bordered table-striped text-center">
+            <thead className="thead-dark">
+              <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Company</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cartItems.map((item) => (
+                <tr key={item._id}>
+                  <td>
+                    {item.image && (
+                      <img
+                        src={`http://localhost:400/${item.image}`}
+                        alt={item.name}
+                        style={{ width: "100px", height: "100px", objectFit: "cover" }}
+                      />
+                    )}
+                  </td>
+                  <td>{item.name}</td>
+                  <td>${item.price}</td>
+                  <td>{item.company}</td>
+                  <td>
+                    <button
+                      className="btn btn-danger btn-sm"
+                      onClick={() => removeItemFromCart(item._id)}
+                    >
+                      Remove
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       ) : (
         <p className="text-center">Your cart is empty.</p>

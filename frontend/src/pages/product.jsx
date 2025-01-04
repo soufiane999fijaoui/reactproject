@@ -6,6 +6,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
+  const [searchKey, setSearchKey] = useState(""); // State for the search key
 
   useEffect(() => {
     getProducts();
@@ -15,6 +16,17 @@ const Product = () => {
     let result = await fetch("http://localhost:400/products");
     result = await result.json();
     setProducts(result);
+  };
+
+  const handleSearch = async (key) => {
+    setSearchKey(key);
+    if (key.trim() === "") {
+      getProducts(); // Fetch all products if search is cleared
+    } else {
+      const result = await fetch(`http://localhost:400/search/${key}`);
+      const data = await result.json();
+      setProducts(data);
+    }
   };
 
   const deleteProducts = async (id) => {
@@ -48,6 +60,15 @@ const Product = () => {
   return (
     <div className="container mt-5">
       <h1 className="mb-4 text-center">Product List</h1>
+      <div className="mb-4">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Search products..."
+          value={searchKey}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+      </div>
 
       <section className="intro">
         <div className="bg-light p-5 rounded shadow-sm">
@@ -55,13 +76,30 @@ const Product = () => {
             {products.length > 0 ? (
               products.map((product) => (
                 <div className="col-md-3 col-sm-4 mb-4" key={product._id}>
-                  <div className="card shadow-lg border-light rounded">
+                  <div
+                    className="card shadow-lg border-light rounded"
+                    style={{
+                      cursor: "pointer",
+                      transition: "transform 0.3s ease-in-out",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.transform = "scale(1.05)";
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = "scale(1)";
+                    }}
+                  >
                     {product.image && (
                       <img
                         src={`http://localhost:400/${product.image}`}
                         className="card-img-top"
                         alt={product.name}
-                        style={{ height: "200px", objectFit: "cover" }}
+                        style={{
+                          height: "200px",
+                          objectFit: "cover",
+                          borderTopLeftRadius: "10px",
+                          borderTopRightRadius: "10px",
+                        }}
                       />
                     )}
                     <div className="card-body p-3">

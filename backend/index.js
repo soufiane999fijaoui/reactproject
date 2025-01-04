@@ -27,6 +27,41 @@ const upload = multer({ storage: storage });
 
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+app.get("/users/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id).select("-password");
+    if (!user) {
+      return res.status(404).send({ message: "User not found" });
+    }
+    res.send(user);
+  } catch (error) {
+    console.error("Error fetching user profile:", error);
+    res.status(500).send({ message: "Error fetching user profile", error: error.message });
+  }
+});
+
+app.put("/update-profile/:id", async (req, res) => {
+  try {
+    const { name, email, password } = req.body; 
+    const updatedUserData = {};
+
+    if (name) updatedUserData.name = name;
+    if (email) updatedUserData.email = email;
+    if (password) updatedUserData.password = password;
+
+    const updatedUser = await User.findByIdAndUpdate(req.params.id, updatedUserData, { new: true });
+
+    if (!updatedUser) {
+      return res.status(404).send({ message: "User not found" });
+    }
+
+    res.send({ message: "Profile updated successfully", user: updatedUser });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).send({ message: "Error updating profile", error: error.message });
+  }
+});
+
 app.post("/register", async (req, res) => {
   let user = new User(req.body);
   let result = await user.save();
@@ -133,7 +168,6 @@ app.get("/search/:key", async (req, resp) => {
     resp.status(500).send({ message: "Error fetching products" });
   }
 });
-
 
 app.listen(400, () => {
   console.log("Server is running on port 400");

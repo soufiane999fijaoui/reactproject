@@ -114,7 +114,7 @@ const Login = () => {
                 </div>
                 <div className="d-flex justify-content-center mx-4 mb-3 mb-lg-4">
                   <button type="submit" className="btn btn-danger w-100">
-                    Login
+                    login
                   </button>
                 </div>
               </form>
