@@ -25,7 +25,7 @@ const Home = () => {
       >
         <h1 className="display-4 fw-bold mb-3">Product Management Simplified</h1>
         <p className="lead mb-4">
-          Découvrez notre plateforme intuitive qui facilite la gestion de vos produits, optimise les processus et booste la collaboration de votre équipe.
+          Découvrez notre plateforme intuitive qui facilite la gestion des  produits, optimise les processus et booste la collaboration de votre équipe.
         </p>
         <div>
           <a href="/signup" className="btn btn-dark btn-lg me-3">
